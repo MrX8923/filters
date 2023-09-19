@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block content %}
+    <section class="m-auto col-4">
+        <div class="form-block">
+            <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="m-1">{{ field.label_tag }}</div>
+                    <div class="m-1 {% if field.errors %} errors {% endif %}">{{ field }}</div>
+                {% endfor %}
+                <br>
+                <button class="menu sub-button p-3 text-center" type="submit" value="Send">SEND</button>
+            </form>
+        </div>
+    </section>
+    {% if table_show %}
+        <section class="m-auto col-4">
+            <table>
+                <tr><th>ID</th><th>TITLE</th><th>COUNTRY</th><th>YEAR</th></tr>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.id }}</td>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.country }}</td>
+                        <td>{{ movie.year }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+    {% endif %}
+{% endblock content %}
